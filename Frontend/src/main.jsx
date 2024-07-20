@@ -5,8 +5,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { createContext } from "react";
 import store from "./store";
-import Counter from "./Counter";
-import "./index.scss";
+import "./global.scss";
+
+import IndexPage from "./pages/Index";
+import PanelPage from "./pages/Panel";
 
 export const Context = createContext();
 
@@ -15,7 +17,7 @@ const theme = createTheme({
     palette: {
         primary: palette.augmentColor({
             color: {
-                main: "#367a48",
+                main: "#ed3491",
             },
         }),
     },
@@ -24,7 +26,11 @@ const theme = createTheme({
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Counter />,
+        element: <IndexPage />,
+    },
+    {
+        path: "/panel",
+        element: <PanelPage />,
     },
 ]);
 
