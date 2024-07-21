@@ -28,7 +28,29 @@ flex-direction: row;
         color: #600da3;
         padding-left: 40px;
         padding-top: 40px;
-    
+        #search-card{
+            display: flex;
+            flex-direction: column;
+            background-color: #E7E7E7;
+            height: 200px;
+            border-radius: 10px;
+            align-items: flex-start;
+            padding-left: 30px;
+            max-width: 1500px;
+        #search-container-header{
+            font-size: 30px;
+            font-weight: bold;
+            align-items: center;
+            justify-content: center;
+        }
+       #filter-container{
+         display: flex;
+         flex-direction: row;
+         justify-content: center;
+         align-items: self-start;
+         gap: 20px;
+       }
+    }
     }
     
     #table{
@@ -58,5 +80,5 @@ flex-direction: row;
     overflow: hidden;
 }
 @media (max-width: 768px){
-    
+
 }

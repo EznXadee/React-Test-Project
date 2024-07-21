@@ -21,17 +21,37 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import './styles.scss';
 import LineChartComponent from '../../components/LineChartComponent';
-
+import CustomTextField from '../../components/CustomTextField';
 
 const Index = () => {
   const name = useSelector((state) => state.user.name);
   const [open, setOpen] = useState(true);
-  const [filter, setFilter] = useState('');
+  const [filterName, setFilterName] = useState('');
+  const [filterJobTitle, setFilterJobTitle] = useState('');
+    const [filterDepartment, setFilterDepartment] = useState('');
+    const [filterStartDate, setFilterStartDate] = useState('');
+    const [filterBirthday, setFilterBirthday] = useState('');
+    const [filterAddress, setFilterAddress] = useState('');
   const [currentView, setCurrentView] = useState('employee'); // State to manage the current view
 
-  const handleFilterChange = (event) => {
-    setFilter(event.target.value);
+  const handleFilterChangeName = (event) => {
+    setFilterName(event.target.value);
   };
+  const handleFilterChangeJobTitle = (event) => {
+    setFilterJobTitle(event.target.value);
+    };
+    const handleFilterChangeDepartment = (event) => {
+    setFilterDepartment(event.target.value);
+    };
+    const handleFilterChangeStartDate = (event) => {
+    setFilterStartDate(event.target.value);
+    };
+    const handleFilterChangeBirthday = (event) => {
+    setFilterBirthday(event.target.value);
+    };
+    const handleFilterChangeAddress = (event) => {
+    setFilterAddress(event.target.value);
+    };
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -152,22 +172,16 @@ const Index = () => {
   ];
 
   const filteredData = employeeData.filter((employee) => {
-    const filterText = filter.toLowerCase();
     const fullName = `${employee.firstName} ${employee.middleName} ${employee.lastName}`.toLowerCase();
-    const jobTitle = employee.jobTitle.toLowerCase();
-    const department = employee.department.toLowerCase();
-    const startDate = employee.startDate.toLowerCase();
-    const birthday = employee.birthday.toLowerCase();
-    const address = employee.address.toLowerCase();
     return (
-      fullName.includes(filterText) ||
-      jobTitle.includes(filterText) ||
-      department.includes(filterText) ||
-      startDate.includes(filterText) ||
-      birthday.includes(filterText) ||
-      address.includes(filterText)
+      (filterName === '' || fullName.includes(filterName.toLowerCase())) &&
+      (filterJobTitle === '' || employee.jobTitle.toLowerCase().includes(filterJobTitle.toLowerCase())) &&
+      (filterDepartment === '' || employee.department.toLowerCase().includes(filterDepartment.toLowerCase())) &&
+      (filterStartDate === '' || employee.startDate.includes(filterStartDate)) &&
+      (filterBirthday === '' || employee.birthday.includes(filterBirthday)) &&
+      (filterAddress === '' || employee.address.toLowerCase().includes(filterAddress.toLowerCase()))
     );
-  });
+  })
 
   return (
     <>
@@ -207,15 +221,60 @@ const Index = () => {
         <div id="panel-content">
           {currentView === 'employee-details' && (
             <div id="search-container">
-              <TextField
-                label="Filter"
+            <div id="search-card">
+            <h1 id="search-container-header">Filter by</h1>
+            <div id="filter-container">
+                
+               <CustomTextField
+                label="Name"
                 variant="outlined"
-                fullWidth
-                value={filter}
-                onChange={handleFilterChange}
-                margin="normal" 
+                value={filterName}
+                onChange={handleFilterChangeName}
+                margin="normal"
                 id="search-field"
-              />
+                />
+                  <CustomTextField
+                label="Job Title"
+                variant="outlined"
+                value={filterJobTitle}
+                onChange={handleFilterChangeJobTitle}
+                margin="normal"
+                id="search-field"
+                />
+                  <CustomTextField
+                label="Department"
+                variant="outlined"
+                value={filterDepartment}
+                onChange={handleFilterChangeDepartment}
+                margin="normal"
+                id="search-field"
+                />
+                    <CustomTextField
+                label="Start Date"
+                variant="outlined"
+                value={filterStartDate}
+                onChange={handleFilterChangeStartDate}
+                margin="normal"
+                id="search-field"
+                />    
+                <CustomTextField
+                label="Birthday"
+                variant="outlined"
+                value={filterBirthday}
+                onChange={handleFilterChangeBirthday}
+                margin="normal"
+                id="search-field"
+                />
+                   <CustomTextField
+                label="Address"
+                variant="outlined"
+                value={filterAddress}
+                onChange={handleFilterChangeAddress}
+                margin="normal"
+                id="search-field"
+                />
+                </div>
+                </div>
               <div id="table">
                 <h1 id="table-header">Employee Details</h1>
                 <TableContainer component={Paper}>
