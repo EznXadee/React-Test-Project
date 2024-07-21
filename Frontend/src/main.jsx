@@ -17,7 +17,7 @@ const theme = createTheme({
     palette: {
         primary: palette.augmentColor({
             color: {
-                main: "#600da3",
+                main: "#3E177B",
             },
         }),
     },

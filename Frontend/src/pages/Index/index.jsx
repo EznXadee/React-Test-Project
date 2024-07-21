@@ -1,41 +1,45 @@
-import { useState, useEffect, createRef } from "react";
-import "./styles.scss";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import { useNavigate } from "react-router-dom";
-import { setData } from "../../store";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import Button from '@mui/material/Button';
+import './styles.scss';
 
 const Index = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const ButtonStyle = {
-        width: "250px",
-        height: "50px",
-    }
-    const TextStyle = {
-        width: "250px",
-        height: "50px",
-    }
+        width: "140px",
+        zIndex: 1,
+        height: "40px",
+        color: "white",
+        borderColor: "white",
+        '&:hover': {
+            color: "black",
+            backgroundColor: "white",
+        },
+    };
 
-    const NAMEFIELD = createRef();
-    const EMAILFIELD = createRef();
-
-    const saveName = () => {
-        const name = NAMEFIELD.current.value;
-        const email = EMAILFIELD.current.value;
-        dispatch(setData({ name: name, email: email }));
-        navigate("/panel");
-
-    }
     return (
-        <main id="index">
-            <h1>Introduction</h1>
-            <TextField inputRef={NAMEFIELD} style={TextStyle} id="outlined-basic" label="Enter Your Name" variant="outlined" />
-            <TextField inputRef={EMAILFIELD} style={TextStyle} id="outlined-basic" label="Enter Your Email" variant="outlined" />
-            <Button style={ButtonStyle} onClick={saveName} variant="contained" color="primary">Submit</Button>
-        </main>
+        <>
+            <div className="main-container">
+                <div className="container">
+                    <div className="background-image"></div>
+                    <div className="content">
+                        <div id="welcome-card">
+                            <h1 id="welcome-card-header">Welcome</h1>
+                            <p id="welcome-card-text">
+                                In the heart of the bustling city, where neon lights dance on the rain-slicked streets
+                            </p>
+                            <Button variant="outlined" style={ButtonStyle} onClick={() => navigate('/panel')}>
+                                Go to Panel
+                            </Button>
+                        </div>
+                        <h1 id="specsources">SpecSources</h1>
+                    </div>
+                </div>
+            </div>
+        </>
     );
-};
+}
 
 export default Index;
