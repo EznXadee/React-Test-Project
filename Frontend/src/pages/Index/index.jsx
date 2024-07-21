@@ -28,7 +28,8 @@ const Index = () => {
                         <div id="welcome-card">
                             <h1 id="welcome-card-header">Welcome</h1>
                             <p id="welcome-card-text">
-                                In the heart of the bustling city, where neon lights dance on the rain-slicked streets
+                            Specsources Technical Test for Full Stack Skills.
+                            Made by Talha Majeed
                             </p>
                             <Button variant="outlined" style={ButtonStyle} onClick={() => navigate('/panel')}>
                                 Go to Panel
