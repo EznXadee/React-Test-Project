@@ -59,7 +59,7 @@ const salesData = [
 const formattedData = formatData(salesData);
 
 const LineChartComponent = () => (
-  <Paper style={{ padding: 20, height: '700px', width: "93%" }}>
+  <Paper style={{ padding: 20, height: '800px', width: "93%" }}>
     <Typography variant="h6" component="h2" gutterBottom>
       Sales Overview
     </Typography>

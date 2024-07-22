@@ -24,7 +24,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import './styles.scss';
 import LineChartComponent from '../../components/LineChartComponent';
 import CustomTextField from '../../components/CustomTextField';
-
+import { SlMenu } from "react-icons/sl";
 const Index = () => {
   const name = useSelector((state) => state.user.name);
   const [open, setOpen] = useState(true);
@@ -350,9 +350,18 @@ const filteredSalesReportData = salesReportData.filter((report) => {
   const fullName = `${report.firstName} ${report.middleName} ${report.lastName}`.toLowerCase();
   return filterName === '' || fullName.includes(filterName.toLowerCase());
 });
+const [openSideBar,setOpenSideBar] = React.useState(false)
+  function toggleSidebar(){
+    setOpenSideBar(
+      prevVal => !prevVal
+    )
+  }
   return (
     <>
       <div id="nav-section">
+      <button className="ham-burger" id="ham-burger" onClick={toggleSidebar}>
+      <SlMenu />
+      </button>
         <h1>Panel</h1>
         <h2>{name}</h2>
       </div>
@@ -363,12 +372,13 @@ const filteredSalesReportData = salesReportData.filter((report) => {
           onClose={toggleDrawer}
           variant='persistent'
           sx={{
-            width: 240,
+            width: openSideBar?240:70,
             flexShrink: 0,
             '& .MuiDrawer-paper': {
-              width: 240,
+              width: openSideBar?240:70,
               boxSizing: 'border-box',
               marginTop: 8.8,
+              backgroundColor: 'white'
             },
           }}
         >
@@ -388,8 +398,8 @@ const filteredSalesReportData = salesReportData.filter((report) => {
         <div id="panel-content">
           {currentView === 'employee-details' && (
             <div id="search-container">
-              <div id="search-card">
                 <h1 id="search-container-header">Filter by</h1>
+              <div id="search-card">
                 <div id="filter-container">
                   <CustomTextField
                     label="Name"
