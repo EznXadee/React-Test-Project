@@ -12,7 +12,7 @@ import {
 import { Paper, Typography } from '@mui/material';
 
 const LineChartComponent = ({ data }) => (
-  <Paper style={{ padding: 20, height: '800px', width: '93%' }}>
+  <Paper style={{ padding: 20, height: '400px', width: '93%' }}>
     <Typography variant="h6" component="h2" gutterBottom>
       Sales Overview
     </Typography>
