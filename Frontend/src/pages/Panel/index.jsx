@@ -17,6 +17,7 @@ import {
   Paper,
   ToggleButton,
   ToggleButtonGroup,
+  Button,
   Typography
 } from '@mui/material';
 import BarChartIcon from '@mui/icons-material/BarChart';
@@ -189,169 +190,169 @@ const Index = () => {
 
   const salesReportData = [
     {
-        firstName: 'John',
-        middleName: 'A.',
-        lastName: 'Doe',
-        orderDate: '2024-01-01',
-        status: 'Completed',
-        account: 'AC12345',
-        billToAddress: '1234 Elm Street, Springfield',
-        subtotal: 1500,
-        tax: 150,
-        total: 1650,
+      firstName: 'John',
+      middleName: 'A.',
+      lastName: 'Doe',
+      orderDate: '2024-01-01',
+      status: 'Completed',
+      account: 'AC12345',
+      billToAddress: '1234 Elm Street, Springfield',
+      subtotal: 1500,
+      tax: 150,
+      total: 1650,
     },
     {
-        firstName: 'Jane',
-        middleName: 'B.',
-        lastName: 'Smith',
-        orderDate: '2024-01-02',
-        status: 'Pending',
-        account: 'AC12346',
-        billToAddress: '5678 Oak Avenue, Springfield',
-        subtotal: 1200,
-        tax: 120,
-        total: 1320,
+      firstName: 'Jane',
+      middleName: 'B.',
+      lastName: 'Smith',
+      orderDate: '2024-01-02',
+      status: 'Pending',
+      account: 'AC12346',
+      billToAddress: '5678 Oak Avenue, Springfield',
+      subtotal: 1200,
+      tax: 120,
+      total: 1320,
     },
     {
-        firstName: 'Alice',
-        middleName: 'C.',
-        lastName: 'Johnson',
-        orderDate: '2024-01-03',
-        status: 'Completed',
-        account: 'AC12347',
-        billToAddress: '9101 Maple Road, Shelbyville',
-        subtotal: 1800,
-        tax: 180,
-        total: 1980,
+      firstName: 'Alice',
+      middleName: 'C.',
+      lastName: 'Johnson',
+      orderDate: '2024-01-03',
+      status: 'Completed',
+      account: 'AC12347',
+      billToAddress: '9101 Maple Road, Shelbyville',
+      subtotal: 1800,
+      tax: 180,
+      total: 1980,
     },
     {
-        firstName: 'Bob',
-        middleName: 'D.',
-        lastName: 'Brown',
-        orderDate: '2024-01-04',
-        status: 'In Progress',
-        account: 'AC12348',
-        billToAddress: '1213 Birch Lane, Capital City',
-        subtotal: 1600,
-        tax: 160,
-        total: 1760,
+      firstName: 'Bob',
+      middleName: 'D.',
+      lastName: 'Brown',
+      orderDate: '2024-01-04',
+      status: 'In Progress',
+      account: 'AC12348',
+      billToAddress: '1213 Birch Lane, Capital City',
+      subtotal: 1600,
+      tax: 160,
+      total: 1760,
     },
     {
-        firstName: 'Charlie',
-        middleName: 'E.',
-        lastName: 'Davis',
-        orderDate: '2024-01-05',
-        status: 'Completed',
-        account: 'AC12349',
-        billToAddress: '1415 Pine Street, Springfield',
-        subtotal: 1400,
-        tax: 140,
-        total: 1540,
+      firstName: 'Charlie',
+      middleName: 'E.',
+      lastName: 'Davis',
+      orderDate: '2024-01-05',
+      status: 'Completed',
+      account: 'AC12349',
+      billToAddress: '1415 Pine Street, Springfield',
+      subtotal: 1400,
+      tax: 140,
+      total: 1540,
     },
     {
-        firstName: 'Daniel',
-        middleName: 'F.',
-        lastName: 'Evans',
-        orderDate: '2024-01-06',
-        status: 'Pending',
-        account: 'AC12350',
-        billToAddress: '1617 Cedar Avenue, Shelbyville',
-        subtotal: 1700,
-        tax: 170,
-        total: 1870,
+      firstName: 'Daniel',
+      middleName: 'F.',
+      lastName: 'Evans',
+      orderDate: '2024-01-06',
+      status: 'Pending',
+      account: 'AC12350',
+      billToAddress: '1617 Cedar Avenue, Shelbyville',
+      subtotal: 1700,
+      tax: 170,
+      total: 1870,
     },
     {
-        firstName: 'Eve',
-        middleName: 'G.',
-        lastName: 'Franklin',
-        orderDate: '2024-01-07',
-        status: 'Completed',
-        account: 'AC12351',
-        billToAddress: '1819 Spruce Boulevard, Capital City',
-        subtotal: 1100,
-        tax: 110,
-        total: 1210,
+      firstName: 'Eve',
+      middleName: 'G.',
+      lastName: 'Franklin',
+      orderDate: '2024-01-07',
+      status: 'Completed',
+      account: 'AC12351',
+      billToAddress: '1819 Spruce Boulevard, Capital City',
+      subtotal: 1100,
+      tax: 110,
+      total: 1210,
     },
     {
-        firstName: 'Frank',
-        middleName: 'H.',
-        lastName: 'Green',
-        orderDate: '2024-01-08',
-        status: 'In Progress',
-        account: 'AC12352',
-        billToAddress: '2021 Fir Lane, Springfield',
-        subtotal: 1900,
-        tax: 190,
-        total: 2090,
+      firstName: 'Frank',
+      middleName: 'H.',
+      lastName: 'Green',
+      orderDate: '2024-01-08',
+      status: 'In Progress',
+      account: 'AC12352',
+      billToAddress: '2021 Fir Lane, Springfield',
+      subtotal: 1900,
+      tax: 190,
+      total: 2090,
     },
     {
-        firstName: 'Grace',
-        middleName: 'I.',
-        lastName: 'Harris',
-        orderDate: '2024-01-09',
-        status: 'Completed',
-        account: 'AC12353',
-        billToAddress: '2223 Willow Street, Shelbyville',
-        subtotal: 1300,
-        tax: 130,
-        total: 1430,
+      firstName: 'Grace',
+      middleName: 'I.',
+      lastName: 'Harris',
+      orderDate: '2024-01-09',
+      status: 'Completed',
+      account: 'AC12353',
+      billToAddress: '2223 Willow Street, Shelbyville',
+      subtotal: 1300,
+      tax: 130,
+      total: 1430,
     },
     {
-        firstName: 'Henry',
-        middleName: 'J.',
-        lastName: 'Johnson',
-        orderDate: '2024-01-10',
-        status: 'Pending',
-        account: 'AC12354',
-        billToAddress: '2425 Chestnut Avenue, Capital City',
-        subtotal: 1250,
-        tax: 125,
-        total: 1375,
+      firstName: 'Henry',
+      middleName: 'J.',
+      lastName: 'Johnson',
+      orderDate: '2024-01-10',
+      status: 'Pending',
+      account: 'AC12354',
+      billToAddress: '2425 Chestnut Avenue, Capital City',
+      subtotal: 1250,
+      tax: 125,
+      total: 1375,
     },
     {
-        firstName: 'Ivy',
-        middleName: 'K.',
-        lastName: 'King',
-        orderDate: '2024-01-11',
-        status: 'Completed',
-        account: 'AC12355',
-        billToAddress: '2627 Redwood Road, Springfield',
-        subtotal: 1550,
-        tax: 155,
-        total: 1705,
+      firstName: 'Ivy',
+      middleName: 'K.',
+      lastName: 'King',
+      orderDate: '2024-01-11',
+      status: 'Completed',
+      account: 'AC12355',
+      billToAddress: '2627 Redwood Road, Springfield',
+      subtotal: 1550,
+      tax: 155,
+      total: 1705,
     },
     {
-        firstName: 'Jack',
-        middleName: 'L.',
-        lastName: 'Lewis',
-        orderDate: '2024-01-12',
-        status: 'In Progress',
-        account: 'AC12356',
-        billToAddress: '2829 Magnolia Boulevard, Shelbyville',
-        subtotal: 1450,
-        tax: 145,
-        total: 1595,
+      firstName: 'Jack',
+      middleName: 'L.',
+      lastName: 'Lewis',
+      orderDate: '2024-01-12',
+      status: 'In Progress',
+      account: 'AC12356',
+      billToAddress: '2829 Magnolia Boulevard, Shelbyville',
+      subtotal: 1450,
+      tax: 145,
+      total: 1595,
     },
     {
-        firstName: 'Karen',
-        middleName: 'M.',
-        lastName: 'Miller',
-        orderDate: '2024-01-13',
-        status: 'Completed',
-        account: 'AC12357',
-        billToAddress: '3031 Poplar Lane, Capital City',
-        subtotal: 1750,
-        tax: 175,
-        total: 1925,
+      firstName: 'Karen',
+      middleName: 'M.',
+      lastName: 'Miller',
+      orderDate: '2024-01-13',
+      status: 'Completed',
+      account: 'AC12357',
+      billToAddress: '3031 Poplar Lane, Capital City',
+      subtotal: 1750,
+      tax: 175,
+      total: 1925,
     },
-];
+  ];
 
-const filteredSalesReportData = salesReportData.filter((report) => {
-  const fullName = `${report.firstName} ${report.middleName} ${report.lastName}`.toLowerCase();
-  return filterName === '' || fullName.includes(filterName.toLowerCase());
-});
-const [openSideBar,setOpenSideBar] = React.useState(false)
-  function toggleSidebar(){
+  const filteredSalesReportData = salesReportData.filter((report) => {
+    const fullName = `${report.firstName} ${report.middleName} ${report.lastName}`.toLowerCase();
+    return filterName === '' || fullName.includes(filterName.toLowerCase());
+  });
+  const [openSideBar, setOpenSideBar] = React.useState(false)
+  function toggleSidebar() {
     setOpenSideBar(
       prevVal => !prevVal
     )
@@ -359,10 +360,10 @@ const [openSideBar,setOpenSideBar] = React.useState(false)
   return (
     <>
       <div id="nav-section">
-      <button className="ham-burger" id="ham-burger" onClick={toggleSidebar}>
-      <SlMenu />
-      </button>
-        <h1>Panel</h1>
+        <Button style={{ color: "white", fontSize: 25, minWidth: 40 }} className="ham-burger" id="ham-burger" onClick={toggleSidebar}>
+          <SlMenu />
+        </Button>
+        <h1>Data Panel</h1>
         <h2>{name}</h2>
       </div>
       <div id="panel-section">
@@ -372,22 +373,23 @@ const [openSideBar,setOpenSideBar] = React.useState(false)
           onClose={toggleDrawer}
           variant='persistent'
           sx={{
-            width: openSideBar?240:70,
+            width: openSideBar ? 240 : 75,
             flexShrink: 0,
             '& .MuiDrawer-paper': {
-              width: openSideBar?240:70,
+              width: openSideBar ? 240 : 75,
               boxSizing: 'border-box',
-              marginTop: 8.8,
-              backgroundColor: 'white'
+              marginTop: 8.9,
+              backgroundColor: 'white',
+              transition: 'width 0.2s ease-in-out',
             },
           }}
         >
           <List>
             {['Employee Details', 'Sales Report'].map((text, index) => (
-              <ListItem key={text} disablePadding>
+              <ListItem key={text} disablePadding style={{ width: 500 }}>
                 <ListItemButton onClick={() => setCurrentView(text.toLowerCase().replace(' ', '-'))}>
                   <ListItemIcon>
-                    {index % 2 === 0 ? <AccountCircle /> : <BarChartIcon />}
+                    {index % 2 === 0 ? <AccountCircle style={{ fontSize: 35, marginLeft: 3, marginRight: 20 }} /> : <BarChartIcon style={{ fontSize: 35, marginLeft: 3, marginRight: 20 }} />}
                   </ListItemIcon>
                   <ListItemText primary={text} />
                 </ListItemButton>
@@ -398,7 +400,7 @@ const [openSideBar,setOpenSideBar] = React.useState(false)
         <div id="panel-content">
           {currentView === 'employee-details' && (
             <div id="search-container">
-                <h1 id="search-container-header">Filter by</h1>
+              <h1 id="search-container-header">Filter by</h1>
               <div id="search-card">
                 <div id="filter-container">
                   <CustomTextField
@@ -495,7 +497,7 @@ const [openSideBar,setOpenSideBar] = React.useState(false)
           {currentView === 'sales-report' && (
             <div>
               <div id="sales-report-toggle" style={{ padding: '30px' }}>
-                
+
               </div>
               <h1 id="table-header">Sales Report</h1>
               <ToggleButtonGroup
@@ -509,62 +511,62 @@ const [openSideBar,setOpenSideBar] = React.useState(false)
                 <ToggleButton value="graph">Graph</ToggleButton>
                 <ToggleButton value="table">Table</ToggleButton>
               </ToggleButtonGroup>
-              
+
               {showTable ? (
                 <div id="table" style={{ width: '100%' }}>
-                <div id="header-toggle">
-                <h1 id="table-header">Employee Details</h1>
-                <CustomTextField
-                label="Search by Name"
-                variant="outlined"
-                value={filterName}
-                onChange={handleFilterChangeName}
-                margin="normal"
-                id="search-field"
-              />
-              </div>
-                <TableContainer component={Paper} style={{ width: '100%' }}>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>First Name</TableCell>
-                        <TableCell>Middle Name</TableCell>
-                        <TableCell>Last Name</TableCell>
-                        <TableCell>Order Date</TableCell>
-                        <TableCell>Status</TableCell>
-                        <TableCell>Account</TableCell>
-                        <TableCell>Bill To Address</TableCell>
-                        <TableCell>Subtotal</TableCell>
-                        <TableCell>Tax</TableCell>
-                        <TableCell>Total</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {filteredSalesReportData.length > 0 ? (
-                        filteredSalesReportData.map((report, index) => (
-                          <TableRow key={index}>
-                            <TableCell>{report.firstName}</TableCell>
-                            <TableCell>{report.middleName}</TableCell>
-                            <TableCell>{report.lastName}</TableCell>
-                            <TableCell>{report.orderDate}</TableCell>
-                            <TableCell>{report.status}</TableCell>
-                            <TableCell>{report.account}</TableCell>
-                            <TableCell>{report.billToAddress}</TableCell>
-                            <TableCell>{report.subtotal}</TableCell>
-                            <TableCell>{report.tax}</TableCell>
-                            <TableCell>{report.total}</TableCell>
-                          </TableRow>
-                        ))
-                      ) : (
+                  <div id="header-toggle">
+                    <h1 id="table-header">Employee Details</h1>
+                    <CustomTextField
+                      label="Search by Name"
+                      variant="outlined"
+                      value={filterName}
+                      onChange={handleFilterChangeName}
+                      margin="normal"
+                      id="search-field"
+                    />
+                  </div>
+                  <TableContainer component={Paper} style={{ width: '100%' }}>
+                    <Table>
+                      <TableHead>
                         <TableRow>
-                          <TableCell colSpan={10} align="center">No results found</TableCell>
+                          <TableCell>First Name</TableCell>
+                          <TableCell>Middle Name</TableCell>
+                          <TableCell>Last Name</TableCell>
+                          <TableCell>Order Date</TableCell>
+                          <TableCell>Status</TableCell>
+                          <TableCell>Account</TableCell>
+                          <TableCell>Bill To Address</TableCell>
+                          <TableCell>Subtotal</TableCell>
+                          <TableCell>Tax</TableCell>
+                          <TableCell>Total</TableCell>
                         </TableRow>
-                      )}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </div>
-            
+                      </TableHead>
+                      <TableBody>
+                        {filteredSalesReportData.length > 0 ? (
+                          filteredSalesReportData.map((report, index) => (
+                            <TableRow key={index}>
+                              <TableCell>{report.firstName}</TableCell>
+                              <TableCell>{report.middleName}</TableCell>
+                              <TableCell>{report.lastName}</TableCell>
+                              <TableCell>{report.orderDate}</TableCell>
+                              <TableCell>{report.status}</TableCell>
+                              <TableCell>{report.account}</TableCell>
+                              <TableCell>{report.billToAddress}</TableCell>
+                              <TableCell>{report.subtotal}</TableCell>
+                              <TableCell>{report.tax}</TableCell>
+                              <TableCell>{report.total}</TableCell>
+                            </TableRow>
+                          ))
+                        ) : (
+                          <TableRow>
+                            <TableCell colSpan={10} align="center">No results found</TableCell>
+                          </TableRow>
+                        )}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </div>
+
               ) : (
                 <div id="graph-container" style={{ width: '100%' }}>
                   <LineChartComponent />

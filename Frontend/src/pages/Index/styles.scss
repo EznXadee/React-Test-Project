@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap");
 body {
     margin: 0;
     padding: 0;
@@ -34,7 +34,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../../Assets/background-welcome-page.png');
+    background-image: url("../../assets/background-welcome-page.png");
     background-size: cover;
     background-position: center;
     opacity: 0.7;
@@ -123,7 +123,6 @@ body {
     .content {
         align-items: center; /* Center content horizontally */
         padding: 0; /* Remove padding */
-        
     }
 
     #specsources {
@@ -138,7 +137,12 @@ body {
         max-width: 90%; /* Scale down */
         width: 50%; /* Ensure the card takes full width */
         padding: 20px; /* Add padding to ensure it looks good */
-        background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white background */
+        background-color: rgba(
+            255,
+            255,
+            255,
+            0.2
+        ); /* Semi-transparent white background */
         border-radius: 10px; /* Rounded corners */
         border: 1px solid rgba(255, 255, 255, 0.3); /* Optional border for a subtle outline */
         backdrop-filter: blur(10px); /* Blur effect */
@@ -146,11 +150,10 @@ body {
         padding: 20px; /* Padding inside the card */
         color: white;
         height: 900px !important;
-
     }
 
     #welcome-card-header {
-        font-size: 5.1rem; 
+        font-size: 5.1rem;
         font-family: cedarville cursive;
         color: #ffffff;
     }
@@ -170,21 +173,24 @@ body {
         max-width: 100%; /* Full width */
         width: 60%; /* Full width */
         height: 350px;
-        background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white background */
+        background-color: rgba(
+            255,
+            255,
+            255,
+            0.2
+        ); /* Semi-transparent white background */
         border-radius: 10px; /* Rounded corners */
         border: 1px solid rgba(255, 255, 255, 0.3); /* Optional border for a subtle outline */
         backdrop-filter: blur(10px); /* Blur effect */
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for a floating effect */
         padding: 20px; /* Padding inside the card */
         color: white;
-        
     }
 
     #welcome-card-header {
         font-size: 3.5rem; /* Smaller font size */
         color: #ffffff;
-        font-family: 'Cedarville Cursive', cursive;
-
+        font-family: "Cedarville Cursive", cursive;
     }
 
     #welcome-card-text {
