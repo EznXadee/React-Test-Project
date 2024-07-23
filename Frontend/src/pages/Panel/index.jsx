@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   List,
@@ -25,11 +25,13 @@ import './styles.scss';
 import LineChartComponent from '../../components/LineChartComponent';
 import CustomTextField from '../../components/CustomTextField';
 import { SlMenu } from "react-icons/sl";
-import { set1, set2 } from './data.jsx';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import getEmployees from '../../api/getEmployees';
+import getSales from '../../api/getSales';
+import { format } from 'date-fns';
 
 const Index = () => {
   const name = useSelector((state) => state.user.name);
@@ -43,8 +45,34 @@ const Index = () => {
   const [filterHireDate, setFilterHireDate] = useState(null); // Changed to null
   const [filterAddress, setFilterAddress] = useState('');
   const [currentView, setCurrentView] = useState('employee-details');
-  const [showTable, setShowTable] = useState(false);
+  const [showTable, setShowTable] = useState(true);
   const [filterBuisnessID, setFilterBuisnessID] = useState('');
+
+  const mergeRecordsByDate = (records) => {
+    const recordMap = new Map();
+
+    records.forEach(record => {
+      const { date, tax, total, sub } = record;
+      const formattedDate = format(new Date(date), 'MM-dd-yyyy');
+      if (!recordMap.has(formattedDate)) {
+        recordMap.set(formattedDate, { date: formattedDate, tax: 0, total: 0, sub: 0 });
+      }
+      const currentRecord = recordMap.get(formattedDate);
+      currentRecord.tax += tax;
+      currentRecord.total += total;
+      currentRecord.sub += sub;
+    });
+
+    // Round the tax, total, and sub values
+    const roundedRecords = Array.from(recordMap.values()).map(record => ({
+      ...record,
+      tax: Math.round(record.tax),
+      total: Math.round(record.total),
+      sub: Math.round(record.sub)
+    }));
+
+    return roundedRecords.reverse();
+  };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -84,7 +112,7 @@ const Index = () => {
     setOpen(!open);
   };
 
-  const [employeeData, setEmployeeData] = useState(set2);
+  const [employeeData, setEmployeeData] = useState([]);
 
   const filteredData = employeeData.filter((employee) => {
     const fullName = `${employee.FirstName} ${employee.MiddleName} ${employee.LastName}`.toLowerCase();
@@ -108,18 +136,33 @@ const Index = () => {
     );
   });
 
-  const salesReportData = set1;
+  const [salesReportData, setSalesReportData] = useState([]);
+
+  useEffect(() => {
+    getEmployees().then((data) => {
+      setEmployeeData(data);
+    });
+  }, []);
+
+  const getSalesReportData = () => {
+    setSalesReportData([]);
+    const startDate = filterStartDate ? dayjs(filterStartDate).unix() : null;
+    const endDate = filterEndDate ? dayjs(filterEndDate).unix() : null;
+    console.log("Start Date: ", startDate);
+    console.log("End Date: ", endDate);
+
+    getSales(startDate, endDate).then((data) => {
+      setSalesReportData(data);
+    });
+
+  }
 
   const filteredSalesReportData = salesReportData.filter((report) => {
     const fullName = `${report.FirstName} ${report.MiddleName} ${report.LastName}`.toLowerCase();
     const reportDate = dayjs(report.OrderDate);
-    const startDate = filterStartDate ? dayjs(filterStartDate) : null;
-    const endDate = filterEndDate ? dayjs(filterEndDate) : null;
     return (
       (filterName === '' || fullName.includes(filterName.toLowerCase())) &&
-      (filterBuisnessID === '' || report.BusinessID.toString().includes(filterBuisnessID)) &&
-      (startDate === null || reportDate.isAfter(startDate.subtract(1, 'day'))) &&
-      (endDate === null || reportDate.isBefore(endDate.add(1, 'day')))
+      (filterBuisnessID === '' || report.BusinessID.toString().includes(filterBuisnessID))
     );
   });
 
@@ -128,8 +171,9 @@ const Index = () => {
     setOpenSideBar(prevVal => !prevVal);
   };
 
-  const avgSale = salesReportData.map(report => report.SubTotal); // Calculate avgSale data here
-  const totalSale = salesReportData.map(report => report.TotalDue); // Calculate totalSale data here
+  const [g1, setG1] = useState([]);
+  const [g2, setG2] = useState([]);
+  const [g3, setG3] = useState([]);
 
   return (
     <>
@@ -337,7 +381,7 @@ const Index = () => {
                           renderInput={(params) => <CustomTextField {...params} margin="normal" id="search-field" />}
                         />
                       </LocalizationProvider>
-                      <Button variant="contained" style={{ backgroundColor: '#7f47df', height: '55px', marginBottom: '10px' }}>Get Sales</Button>
+                      <Button onClick={getSalesReportData} variant="contained" style={{ backgroundColor: '#7f47df', height: '55px', marginBottom: '10px' }}>Get Sales</Button>
                     </div>
                   </div>
                 </div>
@@ -388,7 +432,7 @@ const Index = () => {
                   </div>
                 ) : (
                   <div id="graph-container">
-                    <LineChartComponent avgSale={avgSale} totalSale={totalSale} />
+                    <LineChartComponent data={mergeRecordsByDate(salesReportData.map((i) => { return { "total": i.TotalDue, "sub": i.SubTotal, "tax": i.TaxAmt, "date": i.OrderDate } }))} />
                   </div>
                 )}
               </div>

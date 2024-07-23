@@ -45,13 +45,13 @@ router.get("/", (req: Request, res: Response) => {
 
     // Add order and pagination
     if (limit && offset) {
-        query += ` ORDER BY p.BusinessEntityID OFFSET ${offset} ROWS FETCH NEXT ${limit} ROWS ONLY;`;
+        query += ` ORDER BY s.OrderDate DESC OFFSET ${offset} ROWS FETCH NEXT ${limit} ROWS ONLY;`;
     } else if (limit) {
-        query += ` ORDER BY p.BusinessEntityID OFFSET 0 ROWS FETCH NEXT ${limit} ROWS ONLY;`;
+        query += ` ORDER BY s.OrderDate DESC OFFSET 0 ROWS FETCH NEXT ${limit} ROWS ONLY;`;
     } else if (offset) {
-        query += ` ORDER BY p.BusinessEntityID OFFSET ${offset} ROWS;`;
+        query += ` ORDER BY s.OrderDate DESC OFFSET ${offset} ROWS;`;
     } else {
-        query += ` ORDER BY p.BusinessEntityID;`;
+        query += ` ORDER BY s.OrderDate DESC;`;
     }
 
     Database.query(query)
