@@ -72,114 +72,139 @@
                         }
                     }
                 }
-                    @media screen and (max-width: 1200px) {
-                        #filter-container2 {
-                            grid-template-columns: repeat(
-                                auto-fill,
-                                minmax(200px, 1fr)
-                            );
-                        }
+                @media screen and (max-width: 1200px) {
+                    #filter-container2 {
+                        grid-template-columns: repeat(
+                            auto-fill,
+                            minmax(200px, 1fr)
+                        );
                     }
                 }
             }
-#top-section{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    height: auto;
-    padding: 20px;
-    #table-header{
-         display: flex;
-        flex-direction: row;
-        justify-content: start;
-        margin: 0;
-        padding-left: 20px;
-    }
-    #top-left-section {
-        display: flex;
-        flex-direction: row;
-        justify-content: start;
-        align-items: center;
-        gap: 20px;
-        #top-left-section-header {
-            font-size: 30px;
-            font-weight: bold;
         }
-        #top-left-section-subheader {
-            font-size: 20px;
-            font-weight: bold;
+        #top-section {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: calc(100% - 70px);
+            height: auto;
+            margin: 30px 40px;
+
+            @media screen and (max-width: 800px) {
+                flex-direction: column;
+                align-items: start;
+                gap: 20px;
+            }
+
+            h1 {
+                flex-grow: 1;
+                padding: 0 !important;
+                min-width: 250px;
+            }
+
+            #table-header {
+                display: flex;
+                flex-direction: row;
+                justify-content: start;
+                margin: 0;
+                padding-left: 20px;
+            }
+            #top-left-section {
+                display: flex;
+                flex-direction: row;
+                justify-content: start;
+                align-items: center;
+                gap: 20px;
+                #top-left-section-header {
+                    font-size: 30px;
+                    font-weight: bold;
+                }
+                #top-left-section-subheader {
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+            }
+            #top-right-section {
+                display: flex;
+                flex-direction: row;
+                justify-content: start;
+                align-items: center;
+                gap: 20px;
+                #top-right-section-header {
+                    font-size: 30px;
+                    font-weight: bold;
+                }
+                #top-right-section-subheader {
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+            }
         }
-    }
-    #top-right-section {
-        display: flex;
-        flex-direction: row;
-        justify-content: start;
-        align-items: center;
-        gap: 20px;
-        #top-right-section-header {
-            font-size: 30px;
-            font-weight: bold;
-        }
-        #top-right-section-subheader {
-            font-size: 20px;
-            font-weight: bold;
-        }
-    }
-}
 
-            #table {
-                margin-top: 40px;
-                width: calc(100% - 80px);
-                table {
-                    width: 3000px;
-                    border-collapse: collapse;
-                }
+        #table {
+            margin-top: 0px;
+            width: calc(100% - 80px);
+            table {
+                width: 2200px;
+                border-collapse: collapse;
+            }
 
-                th,
-                td {
-                    padding: 8px 12px;
-                    border: 1px solid #ddd;
-                }
+            #second {
+                width: 1500px;
+                margin: 20px 40px;
+            }
 
-                thead {
-                    background-color: #f2f2f2;
-                }
+            th,
+            td {
+                padding: 8px 12px;
+                border: 1px solid #ddd;
+            }
 
-                tbody tr:nth-of-type(odd) {
-                    background-color: white; /* White background for odd rows */
-                }
+            thead {
+                background-color: #f2f2f2;
+            }
 
-                tbody tr:nth-of-type(even) {
-                    background-color: #f2f2f2; /* Grey background for even rows */
-                }
-                #search-card2{
-                    width: 100%;
-                    display: flex;
-                    flex-direction: column;
-                    
-                    height: auto;
-                    align-items: center;
-                    justify-content: center;
-                }
-                    
+            tbody tr:nth-of-type(odd) {
+                background-color: white; /* White background for odd rows */
+            }
+
+            tbody tr:nth-of-type(even) {
+                background-color: #f2f2f2; /* Grey background for even rows */
+            }
+            #search-card2 {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+
+                height: auto;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #filter-container2 {
+                display: grid;
+                width: calc(100% - 140px);
+                grid-template-columns: repeat(5, 1fr);
+                gap: 20px;
+                padding: 30px 30px;
+                height: auto;
+                margin: 0px;
+                background-color: #ffffff;
+                margin-bottom: 20px;
+                border: 0.5px solid rgb(213, 213, 213);
+            }
+            @media screen and (max-width: 1200px) {
                 #filter-container2 {
-                    display: grid;
-                    width: calc(100% - 140px);
-                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                    gap: 20px;
-                    padding: 30px 30px;
-                    height: auto;
-                    margin: 0px;
-                    background-color: #ffffff;
-                    margin-bottom: 20px;
-                    border: 0.5px solid rgb(213, 213, 213);
+                    grid-template-columns: repeat(
+                        auto-fill,
+                        minmax(200px, 1fr)
+                    );
                 }
-            
             }
         }
     }
+}
 
 #graph-container {
     display: flex;

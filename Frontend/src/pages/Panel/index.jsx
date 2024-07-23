@@ -89,11 +89,11 @@ const Index = () => {
     const fullName = `${employee.FirstName} ${employee.MiddleName} ${employee.LastName}`.toLowerCase();
     const employeeHireDate = dayjs(employee.HireDate);
     const employeeBirthDate = dayjs(employee.BirthDate);
-    
+
     const hireDateMatch = filterHireDate ? dayjs(filterHireDate).isSame(employeeHireDate, 'day') : true;
     const birthdayMatch = filterBirthday ? dayjs(filterBirthday).isSame(employeeBirthDate, 'day') : true;
     const hireDateRangeMatch = (!filterStartDate || employeeHireDate.isAfter(dayjs(filterStartDate).subtract(1, 'day'))) &&
-                               (!filterEndDate || employeeHireDate.isBefore(dayjs(filterEndDate).add(1, 'day')));
+      (!filterEndDate || employeeHireDate.isBefore(dayjs(filterEndDate).add(1, 'day')));
 
     return (
       (filterName === '' || fullName.includes(filterName.toLowerCase())) &&
@@ -102,7 +102,7 @@ const Index = () => {
       hireDateRangeMatch &&
       hireDateMatch &&
       birthdayMatch &&
-      (filterAddress === '' || 
+      (filterAddress === '' ||
         [employee.AddressLine1, employee.AddressLine2, employee.City, employee.State].filter(Boolean).some(field => field.toLowerCase().includes(filterAddress.toLowerCase())))
     );
   });
@@ -174,7 +174,7 @@ const Index = () => {
           <div id="panel-content">
             {currentView === 'employee-details' && (
               <div id="search-container">
-                <h1 id="search-container-header">Filter by</h1>
+                <h1 id="search-container-header">Employee Details</h1>
                 <div id="search-card">
                   <div id="filter-container">
                     <CustomTextField
@@ -228,8 +228,7 @@ const Index = () => {
                   </div>
                 </div>
                 <div id="table">
-                  <h1 id="table-header">Employee Details</h1>
-                  <TableContainer component={Paper}>
+                  <TableContainer style={{ marginTop: 40 }}>
                     <Table>
                       <TableHead>
                         <TableRow>
@@ -284,7 +283,7 @@ const Index = () => {
             )}
             {currentView === 'sales-report' && (
               <div>
-                <div id="sales-report-toggle" style={{ padding: '30px' }}>
+                <div id="sales-report-toggle">
                   {/* Add any other UI elements here */}
                 </div>
                 <div id="top-section">
@@ -295,60 +294,63 @@ const Index = () => {
                     exclusive
                     onChange={(event, newValue) => setShowTable(newValue === 'table')}
                     aria-label="View toggle"
-                    style={{ width: '100%' }}
+                    style={{ width: "300px", }}
                   >
-                    <ToggleButton value="graph">Graph</ToggleButton>
-                    <ToggleButton value="table">Table</ToggleButton>
+                    <ToggleButton value="graph">Visual Display</ToggleButton>
+                    <ToggleButton value="table">Tablular Entries</ToggleButton>
                   </ToggleButtonGroup>
                 </div>
-                
-                {showTable ? (
-                  <div id="table" style={{ width: '100%' }}>
-                    <div id="search-card2">
-                      <div id="filter-container2">
-                        <CustomTextField
-                          label="Employee Name"
-                          variant="outlined"
-                          value={filterName}
-                          onChange={handleFilterChangeName}
-                          margin="normal"
-                          id="search-field"
+
+                <div id="table" style={{ width: '100%' }}>
+                  <div id="search-card2">
+                    <div id="filter-container2">
+                      <CustomTextField
+                        label="Employee Name"
+                        variant="outlined"
+                        value={filterName}
+                        onChange={handleFilterChangeName}
+                        margin="normal"
+                        id="search-field"
+                      />
+                      <CustomTextField
+                        label="Buisness ID"
+                        variant="outlined"
+                        value={filterBuisnessID}
+                        onChange={handleBuisnessID}
+                        margin="normal"
+                        id="search-field"
+                      />
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                          label="Start Date"
+                          value={filterStartDate ? dayjs(filterStartDate) : null}
+                          onChange={handleFilterChangeStartDate}
+                          renderInput={(params) => <CustomTextField {...params} margin="normal" id="search-field" />}
                         />
-                        <CustomTextField
-                          label="Buisness ID"
-                          variant="outlined"
-                          value={filterBuisnessID}
-                          onChange={handleBuisnessID}
-                          margin="normal"
-                          id="search-field"
+                      </LocalizationProvider>
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                          label="End Date"
+                          value={filterEndDate ? dayjs(filterEndDate) : null}
+                          onChange={handleFilterChangeEndDate}
+                          renderInput={(params) => <CustomTextField {...params} margin="normal" id="search-field" />}
                         />
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          <DatePicker
-                            label="Start Date"
-                            value={filterStartDate ? dayjs(filterStartDate) : null}
-                            onChange={handleFilterChangeStartDate}
-                            renderInput={(params) => <CustomTextField {...params} margin="normal" id="search-field" />}
-                          />
-                        </LocalizationProvider>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          <DatePicker
-                            label="End Date"
-                            value={filterEndDate ? dayjs(filterEndDate) : null}
-                            onChange={handleFilterChangeEndDate}
-                            renderInput={(params) => <CustomTextField {...params} margin="normal" id="search-field" />}
-                          />
-                        </LocalizationProvider>
-                        <Button variant="contained" style={{ backgroundColor: '#7f47df', height: '50px', width: '150px', marginBottom: '10px' }}>Get Sales</Button>
-                      </div>
+                      </LocalizationProvider>
+                      <Button variant="contained" style={{ backgroundColor: '#7f47df', height: '55px', marginBottom: '10px' }}>Get Sales</Button>
                     </div>
-                    <TableContainer component={Paper} style={{ width: '100%' }}>
+                  </div>
+                </div>
+                {showTable ? (
+                  <div id="table">
+                    <TableContainer id="second" style={{ width: 'calc(100%' }}>
                       <Table>
                         <TableHead>
                           <TableRow>
-                            <TableCell>First Name</TableCell>
-                            <TableCell>Middle Name</TableCell>
-                            <TableCell>Last Name</TableCell>
+                            <TableCell>Index</TableCell>
                             <TableCell>Order Date</TableCell>
+                            <TableCell>Seller Name F</TableCell>
+                            <TableCell>Seller Name M</TableCell>
+                            <TableCell>Seller Name L</TableCell>
                             <TableCell>Status</TableCell>
                             <TableCell>Account</TableCell>
                             <TableCell>Business ID</TableCell>
@@ -361,10 +363,11 @@ const Index = () => {
                           {filteredSalesReportData.length > 0 ? (
                             filteredSalesReportData.map((report, index) => (
                               <TableRow key={index}>
+                                <TableCell>{index + 1}</TableCell>
+                                <TableCell>{formatDate(report.OrderDate)}</TableCell>
                                 <TableCell>{report.FirstName}</TableCell>
                                 <TableCell>{report.MiddleName}</TableCell>
                                 <TableCell>{report.LastName}</TableCell>
-                                <TableCell>{formatDate(report.OrderDate)}</TableCell>
                                 <TableCell>{report.Status}</TableCell>
                                 <TableCell>{report.AccountNumber}</TableCell>
                                 <TableCell>{report.BusinessID}</TableCell>
