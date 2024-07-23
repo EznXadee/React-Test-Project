@@ -20,7 +20,6 @@
 }
 #panel-section {
     display: flex;
-    flex-direction: row;
     #main-content {
         width: 100%;
         margin-top: 70px;
@@ -33,9 +32,10 @@
                 width: 100%;
                 height: auto;
                 border-radius: 10px;
-                color: #7f47df;
+                color: black;
                 padding-left: 40px;
-                padding-top: 40px;
+                padding-top: 20px;
+                font-size: 15px;
 
                 #search-container-header {
                     font-size: 30px;
@@ -46,6 +46,7 @@
                 }
 
                 #search-card {
+                    width: calc(100% - 140px);
                     display: flex;
                     flex-direction: column;
                     background-color: #ffffff;
@@ -53,34 +54,31 @@
                     align-items: center;
                     justify-content: center;
                     padding: 20px 30px;
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                    border: 0.5px solid rgb(231, 231, 231);
-                    max-width: 1500px;
+                    border: 0.5px solid rgb(213, 213, 213);
 
                     #filter-container {
                         display: grid;
-                        grid-template-columns: repeat(
-                            auto-fill,
-                            minmax(200px, 1fr)
-                        );
+                        grid-template-columns: repeat(6, 1fr);
                         gap: 20px;
                         width: 100%;
                         padding: 20px;
+                    }
+                    @media screen and (max-width: 1200px) {
+                        #filter-container {
+                            grid-template-columns: repeat(
+                                auto-fill,
+                                minmax(200px, 1fr)
+                            );
+                        }
                     }
                 }
             }
 
             #table {
-                width: 100%;
-                height: auto;
-                border-radius: 10px;
-                background-color: #e7e7e7;
-                color: #7f47df;
-                margin-top: 60px;
-                padding: 20px;
-
+                margin-top: 40px;
+                width: calc(100% - 80px);
                 table {
-                    width: 100%;
+                    width: 3000px;
                     border-collapse: collapse;
                 }
 
@@ -118,9 +116,4 @@
     padding: 20px;
     border-radius: 10px;
     overflow: hidden;
-}
-@media (max-width: 250px) {
-    #filter-container {
-        grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-    }
 }

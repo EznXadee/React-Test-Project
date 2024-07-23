@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
   List,
@@ -26,6 +26,10 @@ import './styles.scss';
 import LineChartComponent from '../../components/LineChartComponent';
 import CustomTextField from '../../components/CustomTextField';
 import { SlMenu } from "react-icons/sl";
+import getEmployees from '../../api/getEmployees';
+
+
+
 const Index = () => {
   const name = useSelector((state) => state.user.name);
   const [open, setOpen] = useState(true);
@@ -35,8 +39,13 @@ const Index = () => {
   const [filterStartDate, setFilterStartDate] = useState('');
   const [filterBirthday, setFilterBirthday] = useState('');
   const [filterAddress, setFilterAddress] = useState('');
-  const [currentView, setCurrentView] = useState('employee-details'); // Default to 'employee-details'
-  const [showTable, setShowTable] = useState(false); // State to toggle between graph and table
+  const [currentView, setCurrentView] = useState('employee-details');
+  const [showTable, setShowTable] = useState(false);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-GB');
+  };
 
   const handleFilterChangeName = (event) => {
     setFilterName(event.target.value);
@@ -61,120 +70,13 @@ const Index = () => {
     setOpen(!open);
   };
 
-  const employeeData = [
-    // Existing data
-    {
-      firstName: 'John',
-      middleName: 'A.',
-      lastName: 'Doe',
-      jobTitle: 'Software Engineer',
-      department: 'Engineering',
-      startDate: '2023-01-15',
-      birthday: '1990-05-12',
-      address: '1234 Elm Street, Springfield'
-    },
-    {
-      firstName: 'Jane',
-      middleName: 'B.',
-      lastName: 'Smith',
-      jobTitle: 'Project Manager',
-      department: 'Product',
-      startDate: '2022-07-19',
-      birthday: '1985-11-30',
-      address: '5678 Oak Avenue, Springfield'
-    },
-    // Manually added data
-    {
-      firstName: 'Alice',
-      middleName: 'C.',
-      lastName: 'Johnson',
-      jobTitle: 'Data Scientist',
-      department: 'Analytics',
-      startDate: '2024-02-10',
-      birthday: '1988-03-25',
-      address: '91011 Maple Street, Metropolis'
-    },
-    {
-      firstName: 'Bob',
-      middleName: 'D.',
-      lastName: 'Williams',
-      jobTitle: 'UX Designer',
-      department: 'Design',
-      startDate: '2023-05-22',
-      birthday: '1992-06-15',
-      address: '1213 Pine Lane, Gotham'
-    },
-    {
-      firstName: 'Carol',
-      middleName: 'E.',
-      lastName: 'Davis',
-      jobTitle: 'Marketing Manager',
-      department: 'Marketing',
-      startDate: '2022-11-30',
-      birthday: '1984-08-05',
-      address: '1415 Oak Drive, Star City'
-    },
-    {
-      firstName: 'David',
-      middleName: 'F.',
-      lastName: 'Miller',
-      jobTitle: 'Systems Analyst',
-      department: 'IT',
-      startDate: '2024-03-18',
-      birthday: '1990-12-01',
-      address: '1617 Cedar Avenue, Riverdale'
-    },
-    {
-      firstName: 'Eve',
-      middleName: 'G.',
-      lastName: 'Wilson',
-      jobTitle: 'HR Specialist',
-      department: 'Human Resources',
-      startDate: '2023-08-14',
-      birthday: '1986-04-20',
-      address: '1819 Birch Street, Smallville'
-    },
-    {
-      firstName: 'Frank',
-      middleName: 'H.',
-      lastName: 'Moore',
-      jobTitle: 'Sales Executive',
-      department: 'Sales',
-      startDate: '2024-01-09',
-      birthday: '1989-09-30',
-      address: '2021 Elm Road, Metropolis'
-    },
-    {
-      firstName: 'Grace',
-      middleName: 'I.',
-      lastName: 'Taylor',
-      jobTitle: 'Customer Support',
-      department: 'Support',
-      startDate: '2023-04-25',
-      birthday: '1991-07-16',
-      address: '2223 Maple Court, Gotham'
-    },
-    {
-      firstName: 'Henry',
-      middleName: 'J.',
-      lastName: 'Anderson',
-      jobTitle: 'Product Designer',
-      department: 'Design',
-      startDate: '2024-06-12',
-      birthday: '1987-11-22',
-      address: '2425 Pine Boulevard, Star City'
-    },
-    {
-      firstName: 'Ivy',
-      middleName: 'K.',
-      lastName: 'Thomas',
-      jobTitle: 'Business Analyst',
-      department: 'Business',
-      startDate: '2022-09-08',
-      birthday: '1993-02-18',
-      address: '2627 Oak Lane, Riverdale'
-    }
-  ];
+  const [employeeData, setEmployeeData] = useState([]);
+
+  useEffect(() => {
+    getEmployees().then((r) => {
+      setEmployeeData(r);
+    });
+  }, []);
 
   const filteredData = employeeData.filter((employee) => {
     const fullName = `${employee.firstName} ${employee.middleName} ${employee.lastName}`.toLowerCase();
@@ -373,10 +275,10 @@ const Index = () => {
           onClose={toggleDrawer}
           variant='persistent'
           sx={{
-            width: openSideBar ? 240 : 75,
+            width: openSideBar ? 240 : 72,
             flexShrink: 0,
             '& .MuiDrawer-paper': {
-              width: openSideBar ? 240 : 75,
+              width: openSideBar ? 240 : 72,
               boxSizing: 'border-box',
               marginTop: 8.9,
               backgroundColor: 'white',
@@ -389,7 +291,7 @@ const Index = () => {
               <ListItem key={text} disablePadding style={{ width: 500 }}>
                 <ListItemButton onClick={() => setCurrentView(text.toLowerCase().replace(' ', '-'))}>
                   <ListItemIcon>
-                    {index % 2 === 0 ? <AccountCircle style={{ fontSize: 35, marginLeft: 3, marginRight: 20 }} /> : <BarChartIcon style={{ fontSize: 35, marginLeft: 3, marginRight: 20 }} />}
+                    {index % 2 === 0 ? <AccountCircle style={{ fontSize: 35, marginLeft: 2, marginRight: 20 }} /> : <BarChartIcon style={{ fontSize: 35, marginLeft: 2, marginRight: 20 }} />}
                   </ListItemIcon>
                   <ListItemText primary={text} />
                 </ListItemButton>
@@ -454,39 +356,53 @@ const Index = () => {
                     />
                   </div>
                 </div>
-                <div id="table" style={{ width: '100%' }}>
+                <div id="table">
                   <h1 id="table-header">Employee Details</h1>
-                  <TableContainer component={Paper} style={{ width: '100%' }}>
+                  <TableContainer>
                     <Table>
                       <TableHead>
                         <TableRow>
+                          <TableCell>Business ID</TableCell>
                           <TableCell>First Name</TableCell>
                           <TableCell>Middle Name</TableCell>
                           <TableCell>Last Name</TableCell>
                           <TableCell>Job Title</TableCell>
+                          <TableCell>Hire Date</TableCell>
                           <TableCell>Department</TableCell>
-                          <TableCell>Start Date</TableCell>
-                          <TableCell>Birthday</TableCell>
-                          <TableCell>Address</TableCell>
+                          <TableCell>BirthDate</TableCell>
+                          <TableCell>Address Line 1</TableCell>
+                          <TableCell>Address Line 2</TableCell>
+                          <TableCell>City</TableCell>
+                          <TableCell>Postal Code</TableCell>
+                          <TableCell>Email Address</TableCell>
+                          <TableCell>Phone Number</TableCell>
+                          <TableCell>State</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
                         {filteredData.length > 0 ? (
                           filteredData.map((employee, index) => (
                             <TableRow key={index}>
-                              <TableCell>{employee.firstName}</TableCell>
-                              <TableCell>{employee.middleName}</TableCell>
-                              <TableCell>{employee.lastName}</TableCell>
-                              <TableCell>{employee.jobTitle}</TableCell>
-                              <TableCell>{employee.department}</TableCell>
-                              <TableCell>{employee.startDate}</TableCell>
-                              <TableCell>{employee.birthday}</TableCell>
-                              <TableCell>{employee.address}</TableCell>
+                              <TableCell>{employee.BusinessID}</TableCell>
+                              <TableCell>{employee.FirstName}</TableCell>
+                              <TableCell>{employee.MiddleName}</TableCell>
+                              <TableCell>{employee.LastName}</TableCell>
+                              <TableCell>{employee.JobTitle}</TableCell>
+                              <TableCell>{formatDate(employee.HireDate)}</TableCell>
+                              <TableCell>{employee.Department}</TableCell>
+                              <TableCell>{formatDate(employee.BirthDate)}</TableCell>
+                              <TableCell>{employee.AddressLine1}</TableCell>
+                              <TableCell>{employee.AddressLine2}</TableCell>
+                              <TableCell>{employee.City}</TableCell>
+                              <TableCell>{employee.PostalCode}</TableCell>
+                              <TableCell>{employee.EmailAddress}</TableCell>
+                              <TableCell>{employee.PhoneNumber}</TableCell>
+                              <TableCell>{employee.State}</TableCell>
                             </TableRow>
                           ))
                         ) : (
                           <TableRow>
-                            <TableCell colSpan={8} align="center">No results found</TableCell>
+                            <TableCell colSpan={15} align="center">No results found</TableCell>
                           </TableRow>
                         )}
                       </TableBody>

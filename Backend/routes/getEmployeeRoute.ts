@@ -7,7 +7,7 @@ router.get("/", (req: Request, res: Response) => {
 
     let query = `
         USE AdventureWorks2022;
-        SELECT FirstName, MiddleName, LastName, JobTitle, HireDate, de.Name as Department, 
+        SELECT p.BusinessEntityID as BusinessID, FirstName, MiddleName, LastName, JobTitle, HireDate, de.Name as Department, 
                BirthDate, AddressLine1, AddressLine2, City, PostalCode, EmailAddress, 
                PhoneNumber, sp.Name as State 
         FROM Person.Person p 
