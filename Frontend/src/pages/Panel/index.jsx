@@ -397,134 +397,65 @@ const Index = () => {
             ))}
           </List>
         </Drawer>
-        <div id="panel-content">
-          {currentView === 'employee-details' && (
-            <div id="search-container">
-              <h1 id="search-container-header">Filter by</h1>
-              <div id="search-card">
-                <div id="filter-container">
-                  <CustomTextField
-                    label="Name"
-                    variant="outlined"
-                    value={filterName}
-                    onChange={handleFilterChangeName}
-                    margin="normal"
-                    id="search-field"
-                  />
-                  <CustomTextField
-                    label="Job Title"
-                    variant="outlined"
-                    value={filterJobTitle}
-                    onChange={handleFilterChangeJobTitle}
-                    margin="normal"
-                    id="search-field"
-                  />
-                  <CustomTextField
-                    label="Department"
-                    variant="outlined"
-                    value={filterDepartment}
-                    onChange={handleFilterChangeDepartment}
-                    margin="normal"
-                    id="search-field"
-                  />
-                  <CustomTextField
-                    label="Start Date"
-                    variant="outlined"
-                    value={filterStartDate}
-                    onChange={handleFilterChangeStartDate}
-                    margin="normal"
-                    id="search-field"
-                  />
-                  <CustomTextField
-                    label="Birthday"
-                    variant="outlined"
-                    value={filterBirthday}
-                    onChange={handleFilterChangeBirthday}
-                    margin="normal"
-                    id="search-field"
-                  />
-                  <CustomTextField
-                    label="Address"
-                    variant="outlined"
-                    value={filterAddress}
-                    onChange={handleFilterChangeAddress}
-                    margin="normal"
-                    id="search-field"
-                  />
-                </div>
-              </div>
-              <div id="table" style={{ width: '100%' }}>
-                <h1 id="table-header">Employee Details</h1>
-                <TableContainer component={Paper} style={{ width: '100%' }}>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>First Name</TableCell>
-                        <TableCell>Middle Name</TableCell>
-                        <TableCell>Last Name</TableCell>
-                        <TableCell>Job Title</TableCell>
-                        <TableCell>Department</TableCell>
-                        <TableCell>Start Date</TableCell>
-                        <TableCell>Birthday</TableCell>
-                        <TableCell>Address</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {filteredData.length > 0 ? (
-                        filteredData.map((employee, index) => (
-                          <TableRow key={index}>
-                            <TableCell>{employee.firstName}</TableCell>
-                            <TableCell>{employee.middleName}</TableCell>
-                            <TableCell>{employee.lastName}</TableCell>
-                            <TableCell>{employee.jobTitle}</TableCell>
-                            <TableCell>{employee.department}</TableCell>
-                            <TableCell>{employee.startDate}</TableCell>
-                            <TableCell>{employee.birthday}</TableCell>
-                            <TableCell>{employee.address}</TableCell>
-                          </TableRow>
-                        ))
-                      ) : (
-                        <TableRow>
-                          <TableCell colSpan={8} align="center">No results found</TableCell>
-                        </TableRow>
-                      )}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              </div>
-            </div>
-          )}
-          {currentView === 'sales-report' && (
-            <div>
-              <div id="sales-report-toggle" style={{ padding: '30px' }}>
-
-              </div>
-              <h1 id="table-header">Sales Report</h1>
-              <ToggleButtonGroup
-                color="primary"
-                value={showTable ? 'table' : 'graph'}
-                exclusive
-                onChange={(event, newValue) => setShowTable(newValue === 'table')}
-                aria-label="View toggle"
-                style={{ width: '100%' }}
-              >
-                <ToggleButton value="graph">Graph</ToggleButton>
-                <ToggleButton value="table">Table</ToggleButton>
-              </ToggleButtonGroup>
-
-              {showTable ? (
-                <div id="table" style={{ width: '100%' }}>
-                  <div id="header-toggle">
-                    <h1 id="table-header">Employee Details</h1>
+        <div id="main-content">
+          <div id="panel-content">
+            {currentView === 'employee-details' && (
+              <div id="search-container">
+                <h1 id="search-container-header">Filter by</h1>
+                <div id="search-card">
+                  <div id="filter-container">
                     <CustomTextField
-                      label="Search by Name"
+                      label="Name"
                       variant="outlined"
                       value={filterName}
                       onChange={handleFilterChangeName}
                       margin="normal"
                       id="search-field"
                     />
+                    <CustomTextField
+                      label="Job Title"
+                      variant="outlined"
+                      value={filterJobTitle}
+                      onChange={handleFilterChangeJobTitle}
+                      margin="normal"
+                      id="search-field"
+                    />
+                    <CustomTextField
+                      label="Department"
+                      variant="outlined"
+                      value={filterDepartment}
+                      onChange={handleFilterChangeDepartment}
+                      margin="normal"
+                      id="search-field"
+                    />
+                    <CustomTextField
+                      label="Start Date"
+                      variant="outlined"
+                      value={filterStartDate}
+                      onChange={handleFilterChangeStartDate}
+                      margin="normal"
+                      id="search-field"
+                    />
+                    <CustomTextField
+                      label="Birthday"
+                      variant="outlined"
+                      value={filterBirthday}
+                      onChange={handleFilterChangeBirthday}
+                      margin="normal"
+                      id="search-field"
+                    />
+                    <CustomTextField
+                      label="Address"
+                      variant="outlined"
+                      value={filterAddress}
+                      onChange={handleFilterChangeAddress}
+                      margin="normal"
+                      id="search-field"
+                    />
                   </div>
+                </div>
+                <div id="table" style={{ width: '100%' }}>
+                  <h1 id="table-header">Employee Details</h1>
                   <TableContainer component={Paper} style={{ width: '100%' }}>
                     <Table>
                       <TableHead>
@@ -532,34 +463,30 @@ const Index = () => {
                           <TableCell>First Name</TableCell>
                           <TableCell>Middle Name</TableCell>
                           <TableCell>Last Name</TableCell>
-                          <TableCell>Order Date</TableCell>
-                          <TableCell>Status</TableCell>
-                          <TableCell>Account</TableCell>
-                          <TableCell>Bill To Address</TableCell>
-                          <TableCell>Subtotal</TableCell>
-                          <TableCell>Tax</TableCell>
-                          <TableCell>Total</TableCell>
+                          <TableCell>Job Title</TableCell>
+                          <TableCell>Department</TableCell>
+                          <TableCell>Start Date</TableCell>
+                          <TableCell>Birthday</TableCell>
+                          <TableCell>Address</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {filteredSalesReportData.length > 0 ? (
-                          filteredSalesReportData.map((report, index) => (
+                        {filteredData.length > 0 ? (
+                          filteredData.map((employee, index) => (
                             <TableRow key={index}>
-                              <TableCell>{report.firstName}</TableCell>
-                              <TableCell>{report.middleName}</TableCell>
-                              <TableCell>{report.lastName}</TableCell>
-                              <TableCell>{report.orderDate}</TableCell>
-                              <TableCell>{report.status}</TableCell>
-                              <TableCell>{report.account}</TableCell>
-                              <TableCell>{report.billToAddress}</TableCell>
-                              <TableCell>{report.subtotal}</TableCell>
-                              <TableCell>{report.tax}</TableCell>
-                              <TableCell>{report.total}</TableCell>
+                              <TableCell>{employee.firstName}</TableCell>
+                              <TableCell>{employee.middleName}</TableCell>
+                              <TableCell>{employee.lastName}</TableCell>
+                              <TableCell>{employee.jobTitle}</TableCell>
+                              <TableCell>{employee.department}</TableCell>
+                              <TableCell>{employee.startDate}</TableCell>
+                              <TableCell>{employee.birthday}</TableCell>
+                              <TableCell>{employee.address}</TableCell>
                             </TableRow>
                           ))
                         ) : (
                           <TableRow>
-                            <TableCell colSpan={10} align="center">No results found</TableCell>
+                            <TableCell colSpan={8} align="center">No results found</TableCell>
                           </TableRow>
                         )}
                       </TableBody>
@@ -567,14 +494,92 @@ const Index = () => {
                   </TableContainer>
                 </div>
 
-              ) : (
-                <div id="graph-container" style={{ width: '100%' }}>
-                  <LineChartComponent />
+              </div>
+
+            )}
+            {currentView === 'sales-report' && (
+              <div>
+                <div id="sales-report-toggle" style={{ padding: '30px' }}>
+
                 </div>
-              )}
-            </div>
-          )}
+                <h1 id="table-header">Sales Report</h1>
+                <ToggleButtonGroup
+                  color="primary"
+                  value={showTable ? 'table' : 'graph'}
+                  exclusive
+                  onChange={(event, newValue) => setShowTable(newValue === 'table')}
+                  aria-label="View toggle"
+                  style={{ width: '100%' }}
+                >
+                  <ToggleButton value="graph">Graph</ToggleButton>
+                  <ToggleButton value="table">Table</ToggleButton>
+                </ToggleButtonGroup>
+
+                {showTable ? (
+                  <div id="table" style={{ width: '100%' }}>
+                    <div id="header-toggle">
+                      <h1 id="table-header">Employee Details</h1>
+                      <CustomTextField
+                        label="Search by Name"
+                        variant="outlined"
+                        value={filterName}
+                        onChange={handleFilterChangeName}
+                        margin="normal"
+                        id="search-field"
+                      />
+                    </div>
+                    <TableContainer component={Paper} style={{ width: '100%' }}>
+                      <Table>
+                        <TableHead>
+                          <TableRow>
+                            <TableCell>First Name</TableCell>
+                            <TableCell>Middle Name</TableCell>
+                            <TableCell>Last Name</TableCell>
+                            <TableCell>Order Date</TableCell>
+                            <TableCell>Status</TableCell>
+                            <TableCell>Account</TableCell>
+                            <TableCell>Bill To Address</TableCell>
+                            <TableCell>Subtotal</TableCell>
+                            <TableCell>Tax</TableCell>
+                            <TableCell>Total</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {filteredSalesReportData.length > 0 ? (
+                            filteredSalesReportData.map((report, index) => (
+                              <TableRow key={index}>
+                                <TableCell>{report.firstName}</TableCell>
+                                <TableCell>{report.middleName}</TableCell>
+                                <TableCell>{report.lastName}</TableCell>
+                                <TableCell>{report.orderDate}</TableCell>
+                                <TableCell>{report.status}</TableCell>
+                                <TableCell>{report.account}</TableCell>
+                                <TableCell>{report.billToAddress}</TableCell>
+                                <TableCell>{report.subtotal}</TableCell>
+                                <TableCell>{report.tax}</TableCell>
+                                <TableCell>{report.total}</TableCell>
+                              </TableRow>
+                            ))
+                          ) : (
+                            <TableRow>
+                              <TableCell colSpan={10} align="center">No results found</TableCell>
+                            </TableRow>
+                          )}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  </div>
+
+                ) : (
+                  <div id="graph-container" style={{ width: '100%' }}>
+                    <LineChartComponent />
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
+
       </div>
     </>
   );

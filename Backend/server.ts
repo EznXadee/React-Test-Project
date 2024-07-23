@@ -12,6 +12,8 @@ app.use(helmet());
 const PORT = process.env.PORT || 5000;
 
 app.use("/", require("./routes/indexRoute"));
+app.use("/get/employees", require("./routes/getEmployeeRoute"));
+app.use("/get/sales", require("./routes/getSalesRoute"));
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
