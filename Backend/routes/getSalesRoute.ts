@@ -3,7 +3,15 @@ const router = express.Router();
 import Database from "../dbConnection";
 
 router.get("/", (req: Request, res: Response) => {
-    const { limit, offset } = req.query;
+    const { limit, offset, start, end } = req.query;
+
+    // Convert EPOCH seconds to SQL Server datetime format
+    const startDate = start
+        ? new Date(parseInt(start as string) * 1000).toISOString()
+        : null;
+    const endDate = end
+        ? new Date(parseInt(end as string) * 1000).toISOString()
+        : null;
 
     let query = `
     SELECT 
@@ -26,6 +34,16 @@ router.get("/", (req: Request, res: Response) => {
         Person.Person p ON sp.BusinessEntityID = p.BusinessEntityID
     `;
 
+    // Add condition for date range
+    if (startDate && endDate) {
+        query += ` WHERE s.OrderDate BETWEEN '${startDate}' AND '${endDate}'`;
+    } else if (startDate) {
+        query += ` WHERE s.OrderDate >= '${startDate}'`;
+    } else if (endDate) {
+        query += ` WHERE s.OrderDate <= '${endDate}'`;
+    }
+
+    // Add order and pagination
     if (limit && offset) {
         query += ` ORDER BY p.BusinessEntityID OFFSET ${offset} ROWS FETCH NEXT ${limit} ROWS ONLY;`;
     } else if (limit) {
