@@ -27,6 +27,7 @@ import LineChartComponent from '../../components/LineChartComponent';
 import CustomTextField from '../../components/CustomTextField';
 import { SlMenu } from "react-icons/sl";
 import getEmployees from '../../api/getEmployees';
+import { set1, set2 } from './data.jsx';
 
 
 
@@ -70,7 +71,9 @@ const Index = () => {
     setOpen(!open);
   };
 
-  const [employeeData, setEmployeeData] = useState([]);
+  const [employeeData, setEmployeeData] = useState(
+    set2
+  );
 
   useEffect(() => {
     getEmployees().then((r) => {
@@ -90,164 +93,7 @@ const Index = () => {
     );
   });
 
-  const salesReportData = [
-    {
-      firstName: 'John',
-      middleName: 'A.',
-      lastName: 'Doe',
-      orderDate: '2024-01-01',
-      status: 'Completed',
-      account: 'AC12345',
-      billToAddress: '1234 Elm Street, Springfield',
-      subtotal: 1500,
-      tax: 150,
-      total: 1650,
-    },
-    {
-      firstName: 'Jane',
-      middleName: 'B.',
-      lastName: 'Smith',
-      orderDate: '2024-01-02',
-      status: 'Pending',
-      account: 'AC12346',
-      billToAddress: '5678 Oak Avenue, Springfield',
-      subtotal: 1200,
-      tax: 120,
-      total: 1320,
-    },
-    {
-      firstName: 'Alice',
-      middleName: 'C.',
-      lastName: 'Johnson',
-      orderDate: '2024-01-03',
-      status: 'Completed',
-      account: 'AC12347',
-      billToAddress: '9101 Maple Road, Shelbyville',
-      subtotal: 1800,
-      tax: 180,
-      total: 1980,
-    },
-    {
-      firstName: 'Bob',
-      middleName: 'D.',
-      lastName: 'Brown',
-      orderDate: '2024-01-04',
-      status: 'In Progress',
-      account: 'AC12348',
-      billToAddress: '1213 Birch Lane, Capital City',
-      subtotal: 1600,
-      tax: 160,
-      total: 1760,
-    },
-    {
-      firstName: 'Charlie',
-      middleName: 'E.',
-      lastName: 'Davis',
-      orderDate: '2024-01-05',
-      status: 'Completed',
-      account: 'AC12349',
-      billToAddress: '1415 Pine Street, Springfield',
-      subtotal: 1400,
-      tax: 140,
-      total: 1540,
-    },
-    {
-      firstName: 'Daniel',
-      middleName: 'F.',
-      lastName: 'Evans',
-      orderDate: '2024-01-06',
-      status: 'Pending',
-      account: 'AC12350',
-      billToAddress: '1617 Cedar Avenue, Shelbyville',
-      subtotal: 1700,
-      tax: 170,
-      total: 1870,
-    },
-    {
-      firstName: 'Eve',
-      middleName: 'G.',
-      lastName: 'Franklin',
-      orderDate: '2024-01-07',
-      status: 'Completed',
-      account: 'AC12351',
-      billToAddress: '1819 Spruce Boulevard, Capital City',
-      subtotal: 1100,
-      tax: 110,
-      total: 1210,
-    },
-    {
-      firstName: 'Frank',
-      middleName: 'H.',
-      lastName: 'Green',
-      orderDate: '2024-01-08',
-      status: 'In Progress',
-      account: 'AC12352',
-      billToAddress: '2021 Fir Lane, Springfield',
-      subtotal: 1900,
-      tax: 190,
-      total: 2090,
-    },
-    {
-      firstName: 'Grace',
-      middleName: 'I.',
-      lastName: 'Harris',
-      orderDate: '2024-01-09',
-      status: 'Completed',
-      account: 'AC12353',
-      billToAddress: '2223 Willow Street, Shelbyville',
-      subtotal: 1300,
-      tax: 130,
-      total: 1430,
-    },
-    {
-      firstName: 'Henry',
-      middleName: 'J.',
-      lastName: 'Johnson',
-      orderDate: '2024-01-10',
-      status: 'Pending',
-      account: 'AC12354',
-      billToAddress: '2425 Chestnut Avenue, Capital City',
-      subtotal: 1250,
-      tax: 125,
-      total: 1375,
-    },
-    {
-      firstName: 'Ivy',
-      middleName: 'K.',
-      lastName: 'King',
-      orderDate: '2024-01-11',
-      status: 'Completed',
-      account: 'AC12355',
-      billToAddress: '2627 Redwood Road, Springfield',
-      subtotal: 1550,
-      tax: 155,
-      total: 1705,
-    },
-    {
-      firstName: 'Jack',
-      middleName: 'L.',
-      lastName: 'Lewis',
-      orderDate: '2024-01-12',
-      status: 'In Progress',
-      account: 'AC12356',
-      billToAddress: '2829 Magnolia Boulevard, Shelbyville',
-      subtotal: 1450,
-      tax: 145,
-      total: 1595,
-    },
-    {
-      firstName: 'Karen',
-      middleName: 'M.',
-      lastName: 'Miller',
-      orderDate: '2024-01-13',
-      status: 'Completed',
-      account: 'AC12357',
-      billToAddress: '3031 Poplar Lane, Capital City',
-      subtotal: 1750,
-      tax: 175,
-      total: 1925,
-    },
-  ];
+  const salesReportData = set1;
 
   const filteredSalesReportData = salesReportData.filter((report) => {
     const fullName = `${report.firstName} ${report.middleName} ${report.lastName}`.toLowerCase();
