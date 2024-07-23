@@ -72,7 +72,62 @@
                         }
                     }
                 }
+                    @media screen and (max-width: 1200px) {
+                        #filter-container2 {
+                            grid-template-columns: repeat(
+                                auto-fill,
+                                minmax(200px, 1fr)
+                            );
+                        }
+                    }
+                }
             }
+#top-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    #table-header{
+         display: flex;
+        flex-direction: row;
+        justify-content: start;
+        margin: 0;
+        padding-left: 20px;
+    }
+    #top-left-section {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        gap: 20px;
+        #top-left-section-header {
+            font-size: 30px;
+            font-weight: bold;
+        }
+        #top-left-section-subheader {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    }
+    #top-right-section {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        gap: 20px;
+        #top-right-section-header {
+            font-size: 30px;
+            font-weight: bold;
+        }
+        #top-right-section-subheader {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    }
+}
 
             #table {
                 margin-top: 40px;
@@ -99,10 +154,33 @@
                 tbody tr:nth-of-type(even) {
                     background-color: #f2f2f2; /* Grey background for even rows */
                 }
+                #search-card2{
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    
+                    height: auto;
+                    align-items: center;
+                    justify-content: center;
+                }
+                    
+                #filter-container2 {
+                    display: grid;
+                    width: calc(100% - 140px);
+                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                    gap: 20px;
+                    padding: 30px 30px;
+                    height: auto;
+                    margin: 0px;
+                    background-color: #ffffff;
+                    margin-bottom: 20px;
+                    border: 0.5px solid rgb(213, 213, 213);
+                }
+            
             }
         }
     }
-}
+
 #graph-container {
     display: flex;
     flex-direction: row;

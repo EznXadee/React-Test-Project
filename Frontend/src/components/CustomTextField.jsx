@@ -9,7 +9,7 @@ const CustomTextField = ({ label, variant, fullWidth, value, onChange, margin, i
       fullWidth={fullWidth}
       value={value}
       onChange={onChange}
-      margin={margin}
+      margin="10px"
       id={id}
     />
   );

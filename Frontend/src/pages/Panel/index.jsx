@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   List,
@@ -7,7 +7,6 @@ import {
   ListItemIcon,
   ListItemText,
   Drawer,
-  TextField,
   Table,
   TableBody,
   TableCell,
@@ -26,10 +25,11 @@ import './styles.scss';
 import LineChartComponent from '../../components/LineChartComponent';
 import CustomTextField from '../../components/CustomTextField';
 import { SlMenu } from "react-icons/sl";
-import getEmployees from '../../api/getEmployees';
 import { set1, set2 } from './data.jsx';
-
-
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 
 const Index = () => {
   const name = useSelector((state) => state.user.name);
@@ -37,11 +37,14 @@ const Index = () => {
   const [filterName, setFilterName] = useState('');
   const [filterJobTitle, setFilterJobTitle] = useState('');
   const [filterDepartment, setFilterDepartment] = useState('');
-  const [filterStartDate, setFilterStartDate] = useState('');
-  const [filterBirthday, setFilterBirthday] = useState('');
+  const [filterStartDate, setFilterStartDate] = useState(null); // Changed to null
+  const [filterEndDate, setFilterEndDate] = useState(null); // Changed to null
+  const [filterBirthday, setFilterBirthday] = useState(null); // Changed to null
+  const [filterHireDate, setFilterHireDate] = useState(null); // Changed to null
   const [filterAddress, setFilterAddress] = useState('');
   const [currentView, setCurrentView] = useState('employee-details');
   const [showTable, setShowTable] = useState(false);
+  const [filterBuisnessID, setFilterBuisnessID] = useState('');
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -57,54 +60,76 @@ const Index = () => {
   const handleFilterChangeDepartment = (event) => {
     setFilterDepartment(event.target.value);
   };
-  const handleFilterChangeStartDate = (event) => {
-    setFilterStartDate(event.target.value);
+  const handleFilterChangeStartDate = (newDate) => {
+    setFilterStartDate(newDate ? newDate.format('YYYY-MM-DD') : null);
   };
-  const handleFilterChangeBirthday = (event) => {
-    setFilterBirthday(event.target.value);
+  const handleFilterChangeEndDate = (newDate) => {
+    setFilterEndDate(newDate ? newDate.format('YYYY-MM-DD') : null);
+  };
+  const handleFilterChangeBirthday = (newDate) => {
+    setFilterBirthday(newDate ? newDate.format('YYYY-MM-DD') : null);
   };
   const handleFilterChangeAddress = (event) => {
     setFilterAddress(event.target.value);
+  };
+  const handleBuisnessID = (event) => {
+    setFilterBuisnessID(event.target.value);
+  };
+  const handleFilterChangeHireDate = (newDate) => {
+    setFilterHireDate(newDate ? newDate.format('YYYY-MM-DD') : null);
   };
 
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
-  const [employeeData, setEmployeeData] = useState(
-    set2
-  );
-
-  useEffect(() => {
-    getEmployees().then((r) => {
-      setEmployeeData(r);
-    });
-  }, []);
+  const [employeeData, setEmployeeData] = useState(set2);
 
   const filteredData = employeeData.filter((employee) => {
-    const fullName = `${employee.firstName} ${employee.middleName} ${employee.lastName}`.toLowerCase();
+    const fullName = `${employee.FirstName} ${employee.MiddleName} ${employee.LastName}`.toLowerCase();
+    const employeeHireDate = dayjs(employee.HireDate);
+    const employeeBirthDate = dayjs(employee.BirthDate);
+    
+    const hireDateMatch = filterHireDate ? dayjs(filterHireDate).isSame(employeeHireDate, 'day') : true;
+    const birthdayMatch = filterBirthday ? dayjs(filterBirthday).isSame(employeeBirthDate, 'day') : true;
+    const hireDateRangeMatch = (!filterStartDate || employeeHireDate.isAfter(dayjs(filterStartDate).subtract(1, 'day'))) &&
+                               (!filterEndDate || employeeHireDate.isBefore(dayjs(filterEndDate).add(1, 'day')));
+
     return (
       (filterName === '' || fullName.includes(filterName.toLowerCase())) &&
-      (filterJobTitle === '' || employee.jobTitle.toLowerCase().includes(filterJobTitle.toLowerCase())) &&
-      (filterDepartment === '' || employee.department.toLowerCase().includes(filterDepartment.toLowerCase())) &&
-      (filterStartDate === '' || employee.startDate.includes(filterStartDate)) &&
-      (filterBirthday === '' || employee.birthday.includes(filterBirthday)) &&
-      (filterAddress === '' || employee.address.toLowerCase().includes(filterAddress.toLowerCase()))
+      (filterJobTitle === '' || employee.JobTitle.toLowerCase().includes(filterJobTitle.toLowerCase())) &&
+      (filterDepartment === '' || employee.Department.toLowerCase().includes(filterDepartment.toLowerCase())) &&
+      hireDateRangeMatch &&
+      hireDateMatch &&
+      birthdayMatch &&
+      (filterAddress === '' || 
+        [employee.AddressLine1, employee.AddressLine2, employee.City, employee.State].filter(Boolean).some(field => field.toLowerCase().includes(filterAddress.toLowerCase())))
     );
   });
 
   const salesReportData = set1;
 
   const filteredSalesReportData = salesReportData.filter((report) => {
-    const fullName = `${report.firstName} ${report.middleName} ${report.lastName}`.toLowerCase();
-    return filterName === '' || fullName.includes(filterName.toLowerCase());
+    const fullName = `${report.FirstName} ${report.MiddleName} ${report.LastName}`.toLowerCase();
+    const reportDate = dayjs(report.OrderDate);
+    const startDate = filterStartDate ? dayjs(filterStartDate) : null;
+    const endDate = filterEndDate ? dayjs(filterEndDate) : null;
+    return (
+      (filterName === '' || fullName.includes(filterName.toLowerCase())) &&
+      (filterBuisnessID === '' || report.BusinessID.toString().includes(filterBuisnessID)) &&
+      (startDate === null || reportDate.isAfter(startDate.subtract(1, 'day'))) &&
+      (endDate === null || reportDate.isBefore(endDate.add(1, 'day')))
+    );
   });
-  const [openSideBar, setOpenSideBar] = React.useState(false)
-  function toggleSidebar() {
-    setOpenSideBar(
-      prevVal => !prevVal
-    )
-  }
+
+  const [openSideBar, setOpenSideBar] = useState(false);
+  const toggleSidebar = () => {
+    setOpenSideBar(prevVal => !prevVal);
+  };
+
+  const avgSale = salesReportData.map(report => report.SubTotal); // Calculate avgSale data here
+  const totalSale = salesReportData.map(report => report.TotalDue); // Calculate totalSale data here
+
   return (
     <>
       <div id="nav-section">
@@ -176,22 +201,22 @@ const Index = () => {
                       margin="normal"
                       id="search-field"
                     />
-                    <CustomTextField
-                      label="Start Date"
-                      variant="outlined"
-                      value={filterStartDate}
-                      onChange={handleFilterChangeStartDate}
-                      margin="normal"
-                      id="search-field"
-                    />
-                    <CustomTextField
-                      label="Birthday"
-                      variant="outlined"
-                      value={filterBirthday}
-                      onChange={handleFilterChangeBirthday}
-                      margin="normal"
-                      id="search-field"
-                    />
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker
+                        label="Hire Date"
+                        value={filterHireDate ? dayjs(filterHireDate) : null}
+                        onChange={handleFilterChangeHireDate}
+                        renderInput={(params) => <CustomTextField {...params} margin="normal" id="search-field" />}
+                      />
+                    </LocalizationProvider>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DatePicker
+                        label="Birth Date"
+                        value={filterBirthday ? dayjs(filterBirthday) : null}
+                        onChange={handleFilterChangeBirthday}
+                        renderInput={(params) => <CustomTextField {...params} margin="normal" id="search-field" />}
+                      />
+                    </LocalizationProvider>
                     <CustomTextField
                       label="Address"
                       variant="outlined"
@@ -204,7 +229,7 @@ const Index = () => {
                 </div>
                 <div id="table">
                   <h1 id="table-header">Employee Details</h1>
-                  <TableContainer>
+                  <TableContainer component={Paper}>
                     <Table>
                       <TableHead>
                         <TableRow>
@@ -215,7 +240,7 @@ const Index = () => {
                           <TableCell>Job Title</TableCell>
                           <TableCell>Hire Date</TableCell>
                           <TableCell>Department</TableCell>
-                          <TableCell>BirthDate</TableCell>
+                          <TableCell>Birth Date</TableCell>
                           <TableCell>Address Line 1</TableCell>
                           <TableCell>Address Line 2</TableCell>
                           <TableCell>City</TableCell>
@@ -255,40 +280,66 @@ const Index = () => {
                     </Table>
                   </TableContainer>
                 </div>
-
               </div>
-
             )}
             {currentView === 'sales-report' && (
               <div>
                 <div id="sales-report-toggle" style={{ padding: '30px' }}>
-
+                  {/* Add any other UI elements here */}
                 </div>
-                <h1 id="table-header">Sales Report</h1>
-                <ToggleButtonGroup
-                  color="primary"
-                  value={showTable ? 'table' : 'graph'}
-                  exclusive
-                  onChange={(event, newValue) => setShowTable(newValue === 'table')}
-                  aria-label="View toggle"
-                  style={{ width: '100%' }}
-                >
-                  <ToggleButton value="graph">Graph</ToggleButton>
-                  <ToggleButton value="table">Table</ToggleButton>
-                </ToggleButtonGroup>
-
+                <div id="top-section">
+                  <h1 id="table-header">Sales Report</h1>
+                  <ToggleButtonGroup
+                    color="primary"
+                    value={showTable ? 'table' : 'graph'}
+                    exclusive
+                    onChange={(event, newValue) => setShowTable(newValue === 'table')}
+                    aria-label="View toggle"
+                    style={{ width: '100%' }}
+                  >
+                    <ToggleButton value="graph">Graph</ToggleButton>
+                    <ToggleButton value="table">Table</ToggleButton>
+                  </ToggleButtonGroup>
+                </div>
+                
                 {showTable ? (
                   <div id="table" style={{ width: '100%' }}>
-                    <div id="header-toggle">
-                      <h1 id="table-header">Employee Details</h1>
-                      <CustomTextField
-                        label="Search by Name"
-                        variant="outlined"
-                        value={filterName}
-                        onChange={handleFilterChangeName}
-                        margin="normal"
-                        id="search-field"
-                      />
+                    <div id="search-card2">
+                      <div id="filter-container2">
+                        <CustomTextField
+                          label="Employee Name"
+                          variant="outlined"
+                          value={filterName}
+                          onChange={handleFilterChangeName}
+                          margin="normal"
+                          id="search-field"
+                        />
+                        <CustomTextField
+                          label="Buisness ID"
+                          variant="outlined"
+                          value={filterBuisnessID}
+                          onChange={handleBuisnessID}
+                          margin="normal"
+                          id="search-field"
+                        />
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <DatePicker
+                            label="Start Date"
+                            value={filterStartDate ? dayjs(filterStartDate) : null}
+                            onChange={handleFilterChangeStartDate}
+                            renderInput={(params) => <CustomTextField {...params} margin="normal" id="search-field" />}
+                          />
+                        </LocalizationProvider>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                          <DatePicker
+                            label="End Date"
+                            value={filterEndDate ? dayjs(filterEndDate) : null}
+                            onChange={handleFilterChangeEndDate}
+                            renderInput={(params) => <CustomTextField {...params} margin="normal" id="search-field" />}
+                          />
+                        </LocalizationProvider>
+                        <Button variant="contained" style={{ backgroundColor: '#7f47df', height: '50px', width: '150px', marginBottom: '10px' }}>Get Sales</Button>
+                      </div>
                     </div>
                     <TableContainer component={Paper} style={{ width: '100%' }}>
                       <Table>
@@ -300,7 +351,7 @@ const Index = () => {
                             <TableCell>Order Date</TableCell>
                             <TableCell>Status</TableCell>
                             <TableCell>Account</TableCell>
-                            <TableCell>Bill To Address</TableCell>
+                            <TableCell>Business ID</TableCell>
                             <TableCell>Subtotal</TableCell>
                             <TableCell>Tax</TableCell>
                             <TableCell>Total</TableCell>
@@ -310,16 +361,16 @@ const Index = () => {
                           {filteredSalesReportData.length > 0 ? (
                             filteredSalesReportData.map((report, index) => (
                               <TableRow key={index}>
-                                <TableCell>{report.firstName}</TableCell>
-                                <TableCell>{report.middleName}</TableCell>
-                                <TableCell>{report.lastName}</TableCell>
-                                <TableCell>{report.orderDate}</TableCell>
-                                <TableCell>{report.status}</TableCell>
-                                <TableCell>{report.account}</TableCell>
-                                <TableCell>{report.billToAddress}</TableCell>
-                                <TableCell>{report.subtotal}</TableCell>
-                                <TableCell>{report.tax}</TableCell>
-                                <TableCell>{report.total}</TableCell>
+                                <TableCell>{report.FirstName}</TableCell>
+                                <TableCell>{report.MiddleName}</TableCell>
+                                <TableCell>{report.LastName}</TableCell>
+                                <TableCell>{formatDate(report.OrderDate)}</TableCell>
+                                <TableCell>{report.Status}</TableCell>
+                                <TableCell>{report.AccountNumber}</TableCell>
+                                <TableCell>{report.BusinessID}</TableCell>
+                                <TableCell>{report.SubTotal}</TableCell>
+                                <TableCell>{report.TaxAmt}</TableCell>
+                                <TableCell>{report.TotalDue}</TableCell>
                               </TableRow>
                             ))
                           ) : (
@@ -331,17 +382,15 @@ const Index = () => {
                       </Table>
                     </TableContainer>
                   </div>
-
                 ) : (
                   <div id="graph-container" style={{ width: '100%' }}>
-                    <LineChartComponent />
+                    <LineChartComponent avgSale={avgSale} totalSale={totalSale} />
                   </div>
                 )}
               </div>
             )}
           </div>
         </div>
-
       </div>
     </>
   );
