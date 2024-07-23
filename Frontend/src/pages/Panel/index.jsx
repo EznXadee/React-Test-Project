@@ -48,7 +48,8 @@ const Index = () => {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-GB');
+    //Return in MM/DD/YYYY format
+    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
   };
 
   const handleFilterChangeName = (event) => {
