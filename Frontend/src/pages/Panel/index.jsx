@@ -386,7 +386,7 @@ const Index = () => {
                     </TableContainer>
                   </div>
                 ) : (
-                  <div id="graph-container" style={{ width: '100%' }}>
+                  <div id="graph-container">
                     <LineChartComponent avgSale={avgSale} totalSale={totalSale} />
                   </div>
                 )}
