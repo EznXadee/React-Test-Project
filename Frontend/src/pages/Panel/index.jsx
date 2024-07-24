@@ -402,6 +402,7 @@ const Index = () => {
                             <TableCell>Subtotal</TableCell>
                             <TableCell>Tax</TableCell>
                             <TableCell>Total</TableCell>
+                            <TableCell>Average Sales</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
@@ -419,11 +420,12 @@ const Index = () => {
                                 <TableCell>{report.SubTotal}</TableCell>
                                 <TableCell>{report.TaxAmt}</TableCell>
                                 <TableCell>{report.TotalDue}</TableCell>
+                                <TableCell>{report.AverageSales}</TableCell>
                               </TableRow>
                             ))
                           ) : (
                             <TableRow>
-                              <TableCell colSpan={10} align="center">No results found</TableCell>
+                              <TableCell colSpan={11} align="center">No results found</TableCell>
                             </TableRow>
                           )}
                         </TableBody>

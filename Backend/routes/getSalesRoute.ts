@@ -21,11 +21,11 @@ router.get("/", (req: Request, res: Response) => {
         s.TaxAmt, 
         s.TotalDue, 
         s.SubTotal, 
-        s.AccountNumber, 
         p.BusinessEntityID as BusinessID, 
         p.FirstName, 
         p.MiddleName, 
-        p.LastName 
+        p.LastName,
+        AVG(s.TotalDue) OVER (PARTITION BY sp.BusinessEntityID) AS AverageSales
     FROM 
         Sales.SalesOrderHeader s 
     JOIN 
