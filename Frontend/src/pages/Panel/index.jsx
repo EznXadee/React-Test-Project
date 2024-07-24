@@ -228,7 +228,7 @@ const Index = () => {
                       value={filterName}
                       onChange={handleFilterChangeName}
                       margin="normal"
-                      id="search-field"
+                      className="search-field"
                     />
                     <CustomTextField
                       label="Job Title"
@@ -236,7 +236,7 @@ const Index = () => {
                       value={filterJobTitle}
                       onChange={handleFilterChangeJobTitle}
                       margin="normal"
-                      id="search-field"
+                      className="search-field"
                     />
                     <CustomTextField
                       label="Department"
@@ -244,14 +244,14 @@ const Index = () => {
                       value={filterDepartment}
                       onChange={handleFilterChangeDepartment}
                       margin="normal"
-                      id="search-field"
+                      className="search-field"
                     />
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                       <DatePicker
                         label="Hire Date"
                         value={filterHireDate ? dayjs(filterHireDate) : null}
                         onChange={handleFilterChangeHireDate}
-                        renderInput={(params) => <CustomTextField {...params} margin="normal" id="search-field" />}
+                        renderInput={(params) => <CustomTextField {...params} margin="normal" className="search-field" />}
                       />
                     </LocalizationProvider>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -259,7 +259,7 @@ const Index = () => {
                         label="Birth Date"
                         value={filterBirthday ? dayjs(filterBirthday) : null}
                         onChange={handleFilterChangeBirthday}
-                        renderInput={(params) => <CustomTextField {...params} margin="normal" id="search-field" />}
+                        renderInput={(params) => <CustomTextField {...params} margin="normal" className="search-field" />}
                       />
                     </LocalizationProvider>
                     <CustomTextField
@@ -268,11 +268,11 @@ const Index = () => {
                       value={filterAddress}
                       onChange={handleFilterChangeAddress}
                       margin="normal"
-                      id="search-field"
+                      className="search-field"
                     />
                   </div>
                 </div>
-                <div id="table">
+                <div className="table">
                   <TableContainer style={{ marginTop: 40 }}>
                     <Table>
                       <TableHead>
@@ -346,7 +346,7 @@ const Index = () => {
                   </ToggleButtonGroup>
                 </div>
 
-                <div id="table" style={{ width: '100%' }}>
+                <div className="table" style={{ width: '100%' }}>
                   <div id="search-card2">
                     <div id="filter-container2">
                       <CustomTextField
@@ -355,7 +355,7 @@ const Index = () => {
                         value={filterName}
                         onChange={handleFilterChangeName}
                         margin="normal"
-                        id="search-field"
+                        className="search-field"
                       />
                       <CustomTextField
                         label="Buisness ID"
@@ -363,14 +363,14 @@ const Index = () => {
                         value={filterBuisnessID}
                         onChange={handleBuisnessID}
                         margin="normal"
-                        id="search-field"
+                        className="search-field"
                       />
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DatePicker
                           label="Start Date"
                           value={filterStartDate ? dayjs(filterStartDate) : null}
                           onChange={handleFilterChangeStartDate}
-                          renderInput={(params) => <CustomTextField {...params} margin="normal" id="search-field" />}
+                          renderInput={(params) => <CustomTextField {...params} margin="normal" className="search-field" />}
                         />
                       </LocalizationProvider>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -378,7 +378,7 @@ const Index = () => {
                           label="End Date"
                           value={filterEndDate ? dayjs(filterEndDate) : null}
                           onChange={handleFilterChangeEndDate}
-                          renderInput={(params) => <CustomTextField {...params} margin="normal" id="search-field" />}
+                          renderInput={(params) => <CustomTextField {...params} margin="normal" className="search-field" />}
                         />
                       </LocalizationProvider>
                       <Button onClick={getSalesReportData} variant="contained" style={{ backgroundColor: '#7f47df', height: '55px', marginBottom: '10px' }}>Get Sales</Button>
@@ -386,7 +386,7 @@ const Index = () => {
                   </div>
                 </div>
                 {showTable ? (
-                  <div id="table">
+                  <div className="table">
                     <TableContainer id="second" style={{ width: 'calc(100%' }}>
                       <Table>
                         <TableHead>
