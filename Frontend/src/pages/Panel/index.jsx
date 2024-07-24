@@ -425,7 +425,7 @@ const Index = () => {
                             ))
                           ) : (
                             <TableRow>
-                              <TableCell colSpan={11} align="center">No results found</TableCell>
+                              <TableCell colSpan={12} align="center">No results found</TableCell>
                             </TableRow>
                           )}
                         </TableBody>
